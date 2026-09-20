@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+<title>Clothing Inventory</title>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Clothing Inventory</h1>
+    <p id="syncStatus">Shared inventory</p>
+  </div>
+  <button id="settingsBtn" class="secondary">Setup</button>
+</header>
+
+<main>
+  <section id="setupCard" class="card">
+    <h2>Connect your shared inventory</h2>
+    <p>This app needs a free Supabase project so both phones can see the same data.</p>
+    <label>Supabase URL<input id="sbUrl" placeholder="https://xxxx.supabase.co"></label>
+    <label>Supabase anon key<input id="sbKey" placeholder="eyJ..."></label>
+    <button id="saveSetup">Connect</button>
+    <p class="small">The anon key is designed for browser apps. Your database must use the security rules supplied in SETUP.md.</p>
+  </section>
+
+  <section id="appArea" hidden>
+    <div class="toolbar">
+      <input id="search" placeholder="Search ID, description, category, size...">
+      <button id="addBtn">＋ Add item</button>
+    </div>
+    <div class="stats">
+      <div><b id="itemCount">0</b><span>Items</span></div>
+      <div><b id="listedCount">0</b><span>Listed</span></div>
+      <div><b id="profitTotal">£0.00</b><span>Profit</span></div>
+    </div>
+    <div id="boxes" class="boxes"></div>
+  </section>
+</main>
+
+<dialog id="itemDialog">
+  <form method="dialog" id="itemForm" class="card">
+    <h2 id="dialogTitle">Add item</h2>
+    <input type="hidden" id="editId">
+    <label>Box (1-50)<input id="box" type="number" min="1" max="50" required></label>
+    <label>Space (1-40)<input id="space" type="number" min="1" max="40" required></label>
+    <label>Item ID<input id="itemId" required></label>
+    <label>Description<input id="description"></label>
+    <label>Category<input id="category"></label>
+    <label>Price<input id="price" type="number" step="0.01" min="0"></label>
+    <label>Sold For<input id="soldFor" type="number" step="0.01" min="0"></label>
+    <label>Size<input id="size"></label>
+    <label>Condition<input id="condition"></label>
+    <label>Listing Link<input id="listingLink" type="url" placeholder="https://..."></label>
+    <div class="actions">
+      <button type="button" id="deleteBtn" class="danger" hidden>Delete</button>
+      <span></span>
+      <button type="button" id="cancelBtn" class="secondary">Cancel</button>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>
